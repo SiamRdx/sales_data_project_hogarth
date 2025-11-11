@@ -14,8 +14,8 @@ SELECT
     ,region.dim_region_id AS dim_region_id
     ,salesperson.dim_salesperson_id AS dim_salesperson_id
     ,product.dim_product_id AS dim_product_id
-    ,ship.dim_ship_id AS dim_ship_id
-    -- ,ship_region.dim_region_id AS dim_ship_region_id
+    ,shipper.dim_shipper_id AS dim_shipper_id
+
     ,order_id
     ,payment_type
     ,quantity
@@ -46,12 +46,5 @@ AND fact.region = salesperson.region
 JOIN {{ ref("dim_product") }} product
 ON fact.product_name = product.product_name
 
-JOIN {{ ref("dim_ship") }} ship
-ON fact.shipper_name = ship.shipper_name
-AND fact.ship_name = ship.ship_name
-
-JOIN {{ ref("dim_region") }} ship_region
-ON ship.dim_region_id = ship_region.dim_region_id
-AND fact.ship_city = ship_region.city
-AND fact.ship_state = ship_region.state
-AND fact.ship_country_region = ship_region.country_region
+JOIN {{ ref("dim_shipper") }} shipper
+ON fact.shipper_name = shipper.shipper_name
