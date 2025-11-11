@@ -34,7 +34,7 @@ SELECT
     ,CAST(shipping_fee AS DOUBLE) AS shipping_fee
     ,CAST(revenue_bins AS DOUBLE) AS revenue_bins
 
-    FROM sales_data_project.sales_data.sales_data_raw
+    FROM sales_data_project.sales_data.sales_data_landing
 -- WHERE order_id IS NOT NULL
 --   AND order_date IS NOT NULL
 --   AND customer_id IS NOT NULL
@@ -76,7 +76,7 @@ SELECT
     -- ,a.quantity
     ,COALESCE(a.quantity,0) AS quantity
     -- ,a.revenue
-    ,COALESCE(a.revenue, (COALESCE(a.unit_price,b.unit_price_max)*COALESCE(a.quantity,0)) ) AS revenue
+    ,COALESCE(a.revenue, ( COALESCE(a.unit_price,b.unit_price_max)*COALESCE(a.quantity,0)) ) AS revenue
     -- ,a.shipping_fee
     ,IFNULL(a.shipping_fee,0) AS shipping_fee
     ,a.revenue_bins
