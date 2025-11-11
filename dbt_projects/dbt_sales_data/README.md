@@ -1,8 +1,9 @@
-Welcome to your new dbt project!
+Welcome to your sales data dbt project!
 
-### Using the starter project
+### Using the project
 
 Try running the following commands:
+- dbt deps
 - dbt run
 - dbt test
 
