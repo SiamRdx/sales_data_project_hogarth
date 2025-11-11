@@ -1,0 +1,54 @@
+resources:
+  jobs:
+    sales_data_project_etl:
+      name: sales_data_project_etl
+      trigger:
+        pause_status: UNPAUSED
+        file_arrival:
+          url: /Volumes/sales_data_project/sales_data/source_data/
+      tasks:
+        - task_key: raw_excel_to_csv
+          notebook_task:
+            notebook_path: notebooks/1. Excel_to_CSV/Convert_Excel_to_CSV
+            source: GIT
+        - task_key: load_data_csv_to_landing
+          depends_on:
+            - task_key: raw_excel_to_csv
+          notebook_task:
+            notebook_path: notebooks/2.CSV_to_Raw_Data_Table/load_csv_data_to_raw_table
+            source: GIT
+        - task_key: sales_data_bronze_to_silver_dbt
+          depends_on:
+            - task_key: load_data_csv_to_landing
+          dbt_task:
+            project_directory: dbt_projects/dbt_sales_data
+            commands:
+              - dbt deps
+              - dbt run
+            schema: sales_data
+            warehouse_id: 2ae7dfcd939f4463
+            catalog: sales_data_project
+            source: GIT
+          environment_key: sales_data_bronze_to_silver_dbt_environment
+      git_source:
+        git_url: https://github.com/SiamRdx/sales_data_project_hogarth
+        git_provider: gitHub
+        git_branch: main
+      queue:
+        enabled: true
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "4"
+        - environment_key: dbt-default
+          spec:
+            dependencies:
+              - dbt-databricks>=1.0.0,<2.0.0
+            environment_version: "4"
+        - environment_key: sales_data_bronze_to_silver_dbt_environment
+          spec:
+            dependencies:
+              - dbt-core==1.10.13
+              - dbt-databricks==1.11.0
+            environment_version: "4"
+      performance_target: PERFORMANCE_OPTIMIZED
