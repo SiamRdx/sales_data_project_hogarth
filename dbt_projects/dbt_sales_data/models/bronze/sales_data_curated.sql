@@ -1,6 +1,8 @@
 {{ config( 
 schema='sales_data',      
-materialized='table',
+materialized='incremental',
+unique_key='order_id',
+incremental_strategy='merge',
 tags=['raw_data', 'curated'],
 enabled = True)
 }}
