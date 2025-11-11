@@ -15,7 +15,7 @@ SELECT
     ,salesperson.dim_salesperson_id AS dim_salesperson_id
     ,product.dim_product_id AS dim_product_id
     ,ship.dim_ship_id AS dim_ship_id
-    ,ship_region.dim_region_id AS dim_ship_region_id
+    -- ,ship_region.dim_region_id AS dim_ship_region_id
     ,order_id
     ,payment_type
     ,quantity
