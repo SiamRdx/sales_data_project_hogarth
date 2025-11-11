@@ -1,3 +1,0 @@
-[submodule "dbt_projects/dbt_sales_data"]
-	path = dbt_projects/dbt_sales_data
-	url = https://github.com/SiamRdx/dbt_sales_data.git
