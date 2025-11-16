@@ -15,10 +15,8 @@ SELECT
 , SUM(a.quantity) AS total_quantity
 
 FROM
--- sales_data_project.sales_data_dwh.fact_sales
-{{ref("fact_sales")}}  a 
--- JOIN sales_data_project.sales_data_dwh.dim_customer 
-{{ref("dim_customer")}} b
+{{ref("fact_sales")}} a 
+JOIN {{ref("dim_customer")}} b
 ON a.dim_customer_id = b.dim_customer_id
 GROUP BY b.customer_id,b.customer_name )
 
