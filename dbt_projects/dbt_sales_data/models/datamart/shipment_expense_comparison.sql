@@ -8,7 +8,7 @@ enabled = True)
 
 
 -- f. Shipment expense comparison by shipping company
--- Consideration of average shipment expense per unit for each product across different shipping companies.
+-- Consideration of average shipment expense per unit for each product across different shipping companies. Shipping company names in columns have been changed to all lowecase with underscores.
 
 with shipping_product_sales AS (
 SELECT 
@@ -60,9 +60,9 @@ FROM (
 PIVOT (
     AVG(mean_shipping_fee)
     FOR shipper_name IN (
-        'Shipping Company A' AS `Shipping Company A`,
-        'Shipping Company B' AS `Shipping Company B`,
-        'Shipping Company C' AS `Shipping Company C`
+        'Shipping Company A' AS shipping_company_a,
+        'Shipping Company B' AS shipping_company_b,
+        'Shipping Company C' AS shipping_company_c
     )
 )
 ORDER BY product_name
