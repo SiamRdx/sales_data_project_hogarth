@@ -6,7 +6,7 @@ enabled = True)
 }}
 
 -- e. Revenue, Quantity & Sales trend analysis by Year, Quarter & Month
--- side by side comparison of quantity trend over month each year
+-- side by side comparison of quantity trend over months each year
 
 with monthly_sales AS (
 SELECT 
